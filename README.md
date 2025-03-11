@@ -289,4 +289,4 @@ When you **change your models** or **add new ones**:
 Thank you for contributing to the **Ski Station Management System**! If you have any questions or run into issues, please reach out in the team’s Discord channel.
 
 With love
-Zoreslav Sushko 
+Zoreslav Sushko
