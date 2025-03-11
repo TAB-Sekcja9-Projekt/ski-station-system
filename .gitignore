@@ -1,3 +1,7 @@
+###############################################################################
+#  NODE / REACT                                                               #
+###############################################################################
+
 # Logs
 logs
 *.log
@@ -93,8 +97,7 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and not Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
+# (При использовании Gatsby вместо Next.js раскомментируйте следующую строку)
 # public
 
 # vuepress build output
@@ -128,3 +131,44 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+###############################################################################
+#  .NET / C# / VISUAL STUDIO                                                  #
+###############################################################################
+
+# Visual Studio artifacts
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.ncrunchsolution
+*.localhistory
+
+# Build artifacts
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# Rider / ReSharper
+.idea/
+*.DotSettings.user
+_ReSharper*/ 
+*.[Rr]e[Ss]harper
+
+# OS generated files
+.DS_Store
+
+# Publish artifacts (если используете команду dotnet publish)
+publish/
+*.PublishProfiles/
+
+# Database / Local files
+*.mdf
+*.ldf
+*.ndf
+*.dbmdl
+*.dbproj.schemaview
+*.TestResults
+*.cache
