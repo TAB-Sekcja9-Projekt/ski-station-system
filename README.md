@@ -230,11 +230,11 @@ When you **change your models** or **add new ones**:
 3. **Run the React client** (in a separate terminal):
    ```bash
    cd client
-   npm start
+   npm run dev
    ```
    or
    ```bash
-   yarn start
+   yarn run dev
    ```
    The client typically runs on `http://localhost:3000`.
 
