@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Test1 from './tasks/test1';
+import Test2 from './tasks/test2';
+import Test3 from './tasks/test3';
+import Test4 from './tasks/test4';
+import Test5 from './tasks/test5';
+import Test from './tasks/test';
+import DialogSelect from './components/DialogSelect';
+// import Test6 from './tasks/test6';
+// import Test7 from './tasks/test7';
+// import Test8 from './tasks/test8';
+// import Test9 from './tasks/test9';
+// import Test10 from './tasks/test10';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const testComponents: { [key: string]: React.ReactElement } = {
+  '1': <Test1 />,
+  '2': <Test2 name='Lol'/>,
+  '3': <Test3 />,
+  '4': <Test4 />,
+  '5': <Test5 />,
+  'Own Test': <Test />,
+};
+
+const App: React.FC = () => {
+  const [selectedTest, setSelectedTest] = useState<string>('1');
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedTest(e.target.value);
+  };
+
+  const handleOk = (value: string) => {
+    setSelectedTest(value);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app-container">
+      
+      <header className="app-header">
+        <h1>React Test Assignments</h1>
+        <DialogSelect 
+          onClose={() => {}} title="Select a test" options={Object.keys(testComponents).map((key) => ({
+            label: key,
+            value: key,
+            component: testComponents[key]
+          }))} 
+          onOk={handleOk} 
+          selectTitle="Select a test" 
+        />
+        {/* <select 
+          value={selectedTest} 
+          onChange={handleSelectChange} 
+          className="test-select"
+        >
+          <option value="1">Test 1: Basic Functional Component</option>
+          <option value="2">Test 2: Component with Props</option>
+          <option value="3">Test 3: Component with State using useState</option>
+          <option value="4">Test 4: Handling Events (Button Click)</option>
+          <option value="5">Test 5: Using useEffect for Data Fetch Simulation</option>
+          <option value="6">Test 6: Conditional Rendering</option>
+          <option value="7">Test 7: Rendering a List</option>
+          <option value="8">Test 8: Using React Context</option>
+          <option value="9">Test 9: Custom Hook (useToggle)</option>
+          <option value="10">Test 10: Basic Routing with React Router</option>
+        </select> */}
+      </header>
+      <main className="app-main">
+        {testComponents[selectedTest]}
+      </main>
+    </div>
+  );
+};
 
-export default App
+export default App;
