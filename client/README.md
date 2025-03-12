@@ -1,46 +1,197 @@
-# Getting Started with Create React App
+# 🎿 Ski Station Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+1. [Overview](#overview)  
+2. [Tech Stack](#tech-stack)  
+3. [Prerequisites](#prerequisites)  
+4. [Repository Structure](#repository-structure)  
+5. [Installation](#installation)  
+   - [1. Clone the Repository](#1-clone-the-repository)  
+   - [2. Client Setup (React + TypeScript)](#2-client-setup-react--typescript)  
+   - [3. Server Setup (.NET + PostgreSQL)](#3-server-setup-net--postgresql)  
+6. [Database Configuration](#database-configuration)  
+   - [Connection String](#connection-string)  
+   - [Applying Migrations](#applying-migrations)  
+   - [Seeding the Database](#seeding-the-database)  
+   - [Updating the Database Schema](#updating-the-database-schema)  
+7. [Running the Application](#running-the-application)  
+8. [Testing the API](#testing-the-api)  
+9. [Troubleshooting](#troubleshooting)  
+10. [Contributing](#contributing)  
 
-In the project directory, you can run:
+Welcome to the **Ski Station Management System** repository! This project is a full-stack application designed to manage ski station operations, such as ticket sales, lift usage tracking, reporting, and more.
 
-### `npm start`
+## 🚀 Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Ski Station Management System is a complete client-server application featuring:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Ticket and pass sales**
+- **Lift usage tracking**
+- **Management and operational reporting**
+- **Ticket management (block/unblock tickets)**
+- **Administrative tools**
 
-### `npm test`
+The system leverages a modern technology stack to ensure performance, maintainability, and scalability.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Frontend:** React + TypeScript + Vite
+- **Backend:** .NET (ASP.NET Core) + Entity Framework Core
+- **Database:** PostgreSQL
+- **Additional Tools:**
+  - Node.js
+  - pgAdmin or psql (optional)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📋 Prerequisites
 
-### `npm run eject`
+Before setting up the project, install the following tools:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [Node.js (v14+)](https://nodejs.org/)
+- [.NET SDK (v6.0+)](https://dotnet.microsoft.com/download)
+- [PostgreSQL](https://www.postgresql.org/download/)
+  - (Optional) pgAdmin for GUI database management
+- [Git](https://git-scm.com/downloads)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Make sure these tools are installed and accessible via your system's PATH.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📁 Repository Structure
 
-## Learn More
+```
+ski-station-system/
+├── client/                 # React + TypeScript app (powered by Vite)
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── App.tsx
+│       ├── main.tsx
+│       └── vite.config.ts
+├── server/                 # .NET (ASP.NET Core) application
+│   ├── Controllers/
+│   ├── Data/
+│   ├── Migrations/
+│   ├── Models/
+│   ├── Program.cs
+│   ├── DesignTimeDbContextFactory.cs
+│   └── appsettings.json
+├── docs/                   # Project documentation
+└── README.md               # This file
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⚙️ Installation & Setup
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/<your-username>/ski-station-system.git
+cd ski-station-system
+```
+
+### 2. Client Setup (React + TypeScript + Vite)
+
+Install dependencies and run the client:
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+The frontend will be running at `http://localhost:5173`.
+
+### 3. Server Setup (.NET + PostgreSQL)
+
+Install dependencies and configure the backend:
+
+```bash
+cd ../server
+dotnet restore
+```
+
+Update `appsettings.json` with your PostgreSQL connection string:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=ski_station_db;Username=postgres;Password=YOUR_PASSWORD"
+  }
+}
+```
+
+Create and apply database migrations:
+
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
+Run the backend server:
+
+```bash
+dotnet run
+```
+
+Backend server will run at `https://localhost:5001`.
+
+---
+
+## 🌱 Database Seeding
+
+To seed your database, ensure the `SeedData.Initialize()` method is called in `Program.cs`:
+
+```csharp
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
+```
+
+---
+
+## 🧪 Testing the API
+
+- Access Swagger UI: `https://localhost:5001/swagger`
+- Use Postman or Insomnia for testing API endpoints.
+
+---
+
+## ❗ Troubleshooting
+
+- **EF Core Errors:** Ensure EF Core tools are installed:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+- **Database Connection Issues:** Check your `appsettings.json` for correct database credentials.
+
+---
+
+## 🤝 Contributing
+
+1. Create a branch (`feature/your-feature`).
+2. Submit a pull request.
+3. Wait for team review before merging.
+
+---
+
+Feel free to reach out via Discord if you have any questions or issues!
+
+**Happy coding!** 🚀
+
+---
+
+_With love,_
+
+**Zoreslav Sushko**
+
