@@ -12,6 +12,15 @@ import DialogSelect from './components/DialogSelect';
 // import Test9 from './tasks/test9';
 // import Test10 from './tasks/test10';
 import './App.css';
+import Counter from './tasks/zadanie1';
+import TodoList from './tasks/zadanie2';
+import LoginForm from './tasks/zadanie3';
+import CardList from './tasks/zadanie4';
+import Post from './tasks/zadanie5';
+import { useTheme } from './tasks/zadanie6';
+import { IconButton } from '@mui/material';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const testComponents: { [key: string]: React.ReactElement } = {
   '1': <Test1 />,
@@ -19,12 +28,17 @@ const testComponents: { [key: string]: React.ReactElement } = {
   '3': <Test3 />,
   '4': <Test4 />,
   '5': <Test5 />,
+  'Zadanie 1': <Counter />,
+  'Zadanie 2': <TodoList />,
+  'Zadanie 3': <LoginForm />,
+  'Zadanie 4': <CardList />,
+  'Zadanie 5': <Post />,
   'Own Test': <Test />,
 };
 
 const App: React.FC = () => {
   const [selectedTest, setSelectedTest] = useState<string>('1');
-
+  const { theme, toggleTheme } = useTheme()
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTest(e.target.value);
   };
@@ -38,6 +52,12 @@ const App: React.FC = () => {
       
       <header className="app-header">
         <h1>React Test Assignments</h1>
+        <IconButton 
+          onClick={toggleTheme}
+          color='inherit'
+        >
+          {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+        </IconButton>
         <DialogSelect 
           onClose={() => {}} title="Select a test" options={Object.keys(testComponents).map((key) => ({
             label: key,
